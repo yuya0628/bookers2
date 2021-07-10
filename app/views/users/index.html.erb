@@ -1,0 +1,66 @@
+<div class="container">
+ <div class="row">
+
+  <div class="col-lg-4">
+<h1>User info</h1>
+  <table class="table">
+   <tr>
+    <th><%= attachment_image_tag current_user, :profile_image, :fill, 60, 60, fallback:"no_image.jpg" %></th>
+   </tr>
+
+   <tr>
+    <th>name</th>
+    <td><%= current_user.name %></td>
+   </tr>
+
+   <tr>
+    <th>introduction</th>
+    <td><%= current_user.introduction %></td>
+   </tr>
+  </table>
+
+ <% if current_user %>
+  <%= link_to edit_user_path(current_user),class:"btn btn-outline-secondary btn-block" do %>
+    <i class="fas fa-cogs"></i>
+  <% end %>
+ <% end %>
+
+
+ <!--userのところにbookの新規投稿画面を埋め込んでいる>-->
+ <h1>New book</h1>
+<%= form_with model:@book,local:true do |f| %>
+Title<br/>
+<%= f.text_field :title %><br/>
+Opinion<br/>
+<%= f.text_area :body %><br/>
+
+<button type="submit" class="btn btn-success">Create Book</button>
+ <!--もともとの記述-->
+<!--<div class="create-book">%= f.submit"Create Book" %></div>-->
+<% end %>
+
+</div>
+
+<div class="col-lg-8">
+<h1>Users</h1>
+
+<table class="table">
+ <tr>
+  <th>image</th>
+  <th>name</th>
+  <th></th>
+ </tr>
+
+<% @users.each do |user| %>
+ <tr>
+  <td><%= attachment_image_tag user,:profile_image, :fill, 5, 5, fallback: "no_image.jpg" %></td>
+  <td><%= user.name %></td>
+  <td><%= link_to"show",user_path(user.id) %></td>
+ </tr>
+ <% end %>
+</table>
+</div>
+
+</div>
+</div>
+
